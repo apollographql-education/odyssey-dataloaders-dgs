@@ -4,7 +4,7 @@ Welcome to the starter code for **GraphQL Federation with Java & DGS**. This is 
 
 ## How to use this repo
 
-The course will walk you step by step on what to do. This codebase is the starting point of your journey!
+The course will walk you step by step on what to do. The code in this repository picks up where the project from [Intro to GraphQL with Java & DGS](http://apollographql.com/tutorials/intro-dgs) leaves off; if you'd like, follow along with course using your own repo! If you need a refresher on GraphQL concepts, jump back into the first course and join us here when you are ready.
 
 This project uses Java and requires JDK 17. To start the project, open a new terminal and run:
 
@@ -22,8 +22,6 @@ For any issues or problems concerning the course content, please refer to the [O
 
 
 # Getting Started
-
-The code in this repository picks up where the project from [Intro to GraphQL with Java & DGS](http://apollographql.com/tutorials/intro-dgs) leaves off; if you'd like, follow along with course using your own repo! If you need a refresher on GraphQL concepts, jump back into the first course and join us here when you are ready.
 
 ### Reference Documentation
 For further reference, please consider the following sections:
