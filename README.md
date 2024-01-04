@@ -32,12 +32,16 @@ For further reference, please consider the following sections:
 * [Spring Web](https://docs.spring.io/spring-boot/docs/3.2.0/reference/htmlsingle/index.html#web)
 
 ### Guides
+
+Please revisit the first course in this series anytime if you get stuck or need a refresher.
+* [Intro to GraphQL with Java & DGS](https://apollographql.com/tutorials/intro-dgs)
+
 The following guides illustrate how to use some features concretely:
 
 * [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
 * [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
 * [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
-* [Intro to GraphQL with Java & DGS](https://apollographql.com/tutorials/intro-dgs)
+
 
 ### Additional Links
 These additional references should also help you:
