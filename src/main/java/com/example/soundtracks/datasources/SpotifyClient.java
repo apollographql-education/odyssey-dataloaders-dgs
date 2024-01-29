@@ -1,8 +1,8 @@
-package com.example.spotifydemo.datasources;
+package com.example.soundtracks.datasources;
 
-import com.example.spotifydemo.models.FeaturedPlaylists;
-import com.example.spotifydemo.models.MappedPlaylist;
-import com.example.spotifydemo.models.Snapshot;
+import com.example.soundtracks.models.FeaturedPlaylists;
+import com.example.soundtracks.models.MappedPlaylist;
+import com.example.soundtracks.models.Snapshot;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
