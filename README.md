@@ -4,13 +4,13 @@ Welcome to the starter code for **GraphQL Federation with Java & DGS**. This is 
 
 ## How to use this repo
 
-The course will walk you step by step on what to do. The code in this repository picks up where the project from [Intro to GraphQL with Java & DGS](http://apollographql.com/tutorials/intro-dgs) leaves off; if you'd like, follow along with course using your own repo! If you need a refresher on GraphQL concepts, jump back into the first course and join us here when you are ready.
+The course will walk you step by step on what to do. The code in this repository picks up where the project from [Intro to GraphQL with Java & DGS](http://apollographql.com/tutorials/intro-dgs) leaves off; if you'd like, follow along with this course using your own repo! If you need a refresher on GraphQL concepts, jump back into the first course and join us here when you are ready.
 
-This project uses Java and requires JDK 17. To start the project, open a new terminal and run:
+This project uses Java and requires JDK 17. To start the project, open a new terminal in the `soundtracks` directory and run:
 
 `./gradlew bootRun`
 
-Or navigate to the `SoundtracksApplication.java` file and click `Run` in your IDE.
+Or open `soundtracks` in your IDE, navigate to the `SoundtracksApplication.java` file and click `Run`.
 
 The `final` branch of this repo contains the final stage of the course, with all of the steps and code completed! If you get stuck, you can refer to it and compare your code.
 
@@ -56,5 +56,4 @@ The default setup assumes that the GraphQL schema file for the remote service is
 
 You can learn more about the [plugin configuration options](https://netflix.github.io/dgs/generating-code-from-schema/#configuring-code-generation) and
 [how to use the generated types](https://netflix.github.io/dgs/generating-code-from-schema/) to adapt the default setup.
-
 
