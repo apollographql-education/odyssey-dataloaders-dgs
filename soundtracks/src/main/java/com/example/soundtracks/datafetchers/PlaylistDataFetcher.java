@@ -1,6 +1,6 @@
 package com.example.soundtracks.datafetchers;
 import com.example.soundtracks.datasources.SpotifyClient;
-import com.example.soundtracks.models.FeaturedPlaylists;
+import com.example.soundtracks.models.PlaylistCollection;
 import com.example.soundtracks.models.MappedPlaylist;
 import com.example.soundtracks.models.Snapshot;
 import com.example.soundtracks.generated.types.AddItemsToPlaylistInput;
@@ -27,7 +27,7 @@ public class PlaylistDataFetcher {
     }
     @DgsQuery
     public List<MappedPlaylist> featuredPlaylists() {
-        FeaturedPlaylists response = spotifyClient.featuredPlaylistsRequest();
+        PlaylistCollection response = spotifyClient.featuredPlaylistsRequest();
         return response.getPlaylists();
     };
 
