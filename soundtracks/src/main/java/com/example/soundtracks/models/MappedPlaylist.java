@@ -19,4 +19,8 @@ public class MappedPlaylist extends Playlist {
         List<MappedTrack> trackList = mapper.readValue(items.traverse(), new TypeReference<>() {});
         this.setTracks(trackList.stream().map(MappedTrack::getTrack).toList());
     }
+
+    public Playlist getPlaylist() {
+        return this;
+    }
 }

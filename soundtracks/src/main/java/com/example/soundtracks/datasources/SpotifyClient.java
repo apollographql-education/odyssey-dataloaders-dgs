@@ -1,6 +1,6 @@
 package com.example.soundtracks.datasources;
 
-import com.example.soundtracks.models.FeaturedPlaylists;
+import com.example.soundtracks.models.PlaylistCollection;
 import com.example.soundtracks.models.MappedPlaylist;
 import com.example.soundtracks.models.Snapshot;
 import org.springframework.stereotype.Component;
@@ -11,12 +11,12 @@ public class SpotifyClient {
     private static final String SPOTIFY_API_URL = "https://spotify-demo-api-fe224840a08c.herokuapp.com/v1";
     private final WebClient builder = WebClient.builder().baseUrl(SPOTIFY_API_URL).build();
 
-    public FeaturedPlaylists featuredPlaylistsRequest() {
+    public PlaylistCollection featuredPlaylistsRequest() {
         return builder
                 .get()
                 .uri("/browse/featured-playlists")
                 .retrieve()
-                .bodyToMono(FeaturedPlaylists.class)
+                .bodyToMono(PlaylistCollection.class)
                 .block();
     }
 
@@ -39,6 +39,19 @@ public class SpotifyClient {
                         .build(playlistId))
                 .retrieve()
                 .bodyToMono(Snapshot.class)
+                .block();
+    }
+
+    public PlaylistCollection search(String term) {
+        return builder
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/search")
+                        .queryParam("q", term)
+                        .queryParam("type", "playlist")
+                        .build())
+                .retrieve()
+                .bodyToMono(PlaylistCollection.class)
                 .block();
     }
 }
