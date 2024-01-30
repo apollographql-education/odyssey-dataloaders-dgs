@@ -4,46 +4,42 @@ import com.example.soundtracks.models.PlaylistCollection;
 import com.example.soundtracks.models.MappedPlaylist;
 import com.example.soundtracks.models.Snapshot;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.client.RestClient;
 
 @Component
 public class SpotifyClient {
     private static final String SPOTIFY_API_URL = "https://spotify-demo-api-fe224840a08c.herokuapp.com/v1";
-    private final WebClient builder = WebClient.builder().baseUrl(SPOTIFY_API_URL).build();
+    private final RestClient client = RestClient.builder().baseUrl(SPOTIFY_API_URL).build();
 
     public PlaylistCollection featuredPlaylistsRequest() {
-        return builder
+        return client
                 .get()
                 .uri("/browse/featured-playlists")
                 .retrieve()
-                .bodyToMono(PlaylistCollection.class)
-                .block();
+                .body(PlaylistCollection.class);
     }
 
     public MappedPlaylist playlistRequest(String playlistId) {
-        return builder
+        return client
                 .get()
                 .uri("/playlists/{playlist_id}", playlistId)
                 .retrieve()
-                .bodyToMono(MappedPlaylist.class)
-                .block();
+                .body(MappedPlaylist.class);
     }
 
-    public Snapshot addItemsToPlaylist(String playlistId, Integer position, String uris) {
-        return builder
+    public Snapshot addItemsToPlaylist(String playlistId, String uris) {
+        return client
                 .post()
                 .uri(uriBuilder -> uriBuilder
                         .path("/playlists/{playlist_id}/tracks")
-                        .queryParam("position", position)
                         .queryParam("uris", uris)
                         .build(playlistId))
                 .retrieve()
-                .bodyToMono(Snapshot.class)
-                .block();
+                .body(Snapshot.class);
     }
 
     public PlaylistCollection search(String term) {
-        return builder
+        return client
                 .get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/search")
@@ -51,7 +47,6 @@ public class SpotifyClient {
                         .queryParam("type", "playlist")
                         .build())
                 .retrieve()
-                .bodyToMono(PlaylistCollection.class)
-                .block();
+                .body(PlaylistCollection.class);
     }
 }
