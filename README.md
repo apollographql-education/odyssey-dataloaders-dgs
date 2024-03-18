@@ -4,7 +4,9 @@ Welcome to the starter code for **Data Loaders with Java & DGS**, part of our Gr
 
 ## How to use this repo
 
-The course will walk you step by step on what to do. The code in this repository picks up where the project from [Federation with Java & DGS](https://www.apollographql.com/tutorials/federation-dgs) leaves off; if you'd like, follow along with this course using your own repo! If you need a refresher on GraphQL concepts, jump back into the [first course](https://www.apollographql.com/tutorials/intro-dgs) and join us here when you are ready.
+The course will walk you step by step on what to do. The code in this repository picks up where the project from [Federation with Java & DGS](https://www.apollographql.com/tutorials/federation-dgs) leaves off; if you'd like, follow along with this course using your own repo!
+
+If you need a refresher on GraphQL concepts, jump back into the [first course](https://www.apollographql.com/tutorials/intro-dgs) and join us here when you are ready.
 
 This project uses Java and requires JDK 17. To start the project, open a new terminal in the `soundtracks` directory and run:
 
