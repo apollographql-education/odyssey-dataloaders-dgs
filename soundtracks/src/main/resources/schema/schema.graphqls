@@ -30,6 +30,19 @@ type Track {
     explicit: Boolean!
     "The URI for the track, usually a Spotify link."
     uri: String!
+    "The artist for the track"
+    artist: Artist
+}
+
+type Artist {
+    "The ID for the artist."
+    id: ID
+    "The name of the artist"
+    name: String
+    "The popularity score of the artist, ranging from 0-100"
+    popularity: Int
+    "The URI for the artist, usually a Spotify link"
+    uri: String
 }
 
 type Query {
