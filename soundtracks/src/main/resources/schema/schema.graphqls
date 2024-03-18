@@ -36,7 +36,7 @@ type Track {
 
 type Artist {
     "The ID for the artist."
-    id: ID
+    id: ID!
     "The name of the artist"
     name: String
     "The popularity score of the artist, ranging from 0-100"
