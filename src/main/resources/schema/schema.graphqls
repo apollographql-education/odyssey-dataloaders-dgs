@@ -10,14 +10,6 @@ type Playlist {
     tracks: [Track!]!
 }
 
-type Recipe @key(fields: "id") {
-    id: ID!
-    "The name of the recipe"
-    name: String @external
-    "A list of recommended playlists for this particular recipe. Returns 1 to 3 playlists."
-    recommendedPlaylists: [Playlist!] @requires(fields: "name")
-}
-
 "A single audio file, usually a song."
 type Track {
     "The ID for the track."

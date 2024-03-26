@@ -12,7 +12,7 @@ This project uses Java and requires JDK 17. To start the project, open a new ter
 
 `./gradlew bootRun`
 
-Or open `soundtracks` in your IDE, navigate to the `SoundtracksApplication.java` file and click `Run`.
+Or open `odyssey-dataloaders-dgs` in your IDE, navigate to the `SoundtracksApplication.java` file and click `Run`.
 
 The `final` branch of this repo contains the final stage of the course, with all of the steps and code completed! If you get stuck, you can refer to it and compare your code.
 
