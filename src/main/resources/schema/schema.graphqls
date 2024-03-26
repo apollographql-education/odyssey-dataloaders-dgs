@@ -42,6 +42,8 @@ type Query {
     featuredPlaylists: [Playlist!]!
     "Retrieves a specific playlist."
     playlist(id: ID!): Playlist
+    "Retrieves a specific track."
+    track(id: ID!): Track
 }
 
 type Mutation {
