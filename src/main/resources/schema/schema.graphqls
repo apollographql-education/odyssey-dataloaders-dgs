@@ -31,8 +31,10 @@ type Artist {
     id: ID!
     "The name of the artist"
     name: String
-    "The popularity score of the artist, ranging from 0-100"
-    popularity: Int
+    "The number of followers the artist has"
+    followers: Int
+    "A collection of genres that can be ascribed to this artist"
+    genres: [String]
     "The URI for the artist, usually a Spotify link"
     uri: String
 }
