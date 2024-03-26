@@ -4,6 +4,8 @@ import com.example.soundtracks.models.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
+import java.util.List;
+
 @Component
 public class SpotifyClient {
     private static final String SPOTIFY_API_URL = "http://localhost:5001/v1";
@@ -40,6 +42,24 @@ public class SpotifyClient {
                 .uri("/artists/{artist_id}", artistId)
                 .retrieve()
                 .body(MappedArtist.class);
+    }
+
+    public List<MappedArtist> multipleArtistsRequest(List<String> artistIds) {
+        System.out.println("I am making a call to the artists endpoint with artists " + artistIds);
+        ArtistCollection artistCollection = client
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/artists")
+                        .queryParam("artists_ids", String.join(",", artistIds))
+                        .build())
+                .retrieve()
+                .body(ArtistCollection.class);
+
+        if (artistCollection != null) {
+            return artistCollection.getArtists();
+        }
+
+        return null;
     }
 
     public Snapshot addItemsToPlaylist(String playlistId, String uris) {
