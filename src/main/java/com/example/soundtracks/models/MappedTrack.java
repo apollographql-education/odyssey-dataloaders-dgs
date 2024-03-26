@@ -35,4 +35,8 @@ public class MappedTrack extends Track {
     public void setArtistId(String artistId) {
         this.artistId = artistId;
     }
+
+    public String getArtistId() {
+        return this.artistId;
+    }
 }

@@ -1,8 +1,6 @@
 package com.example.soundtracks.datasources;
 
-import com.example.soundtracks.models.PlaylistCollection;
-import com.example.soundtracks.models.MappedPlaylist;
-import com.example.soundtracks.models.Snapshot;
+import com.example.soundtracks.models.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
@@ -25,6 +23,22 @@ public class SpotifyClient {
                 .uri("/playlists/{playlist_id}", playlistId)
                 .retrieve()
                 .body(MappedPlaylist.class);
+    }
+
+    public MappedTrack trackRequest(String trackId) {
+        return client
+                .get()
+                .uri("/tracks/{track_id}", trackId)
+                .retrieve()
+                .body(MappedTrack.class);
+    }
+
+    public MappedArtist artistRequest(String artistId) {
+        return client
+                .get()
+                .uri("/artists/{artist_id}", artistId)
+                .retrieve()
+                .body(MappedArtist.class);
     }
 
     public Snapshot addItemsToPlaylist(String playlistId, String uris) {
