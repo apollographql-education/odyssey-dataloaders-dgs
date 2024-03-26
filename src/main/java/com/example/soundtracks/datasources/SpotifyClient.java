@@ -34,6 +34,7 @@ public class SpotifyClient {
     }
 
     public MappedArtist artistRequest(String artistId) {
+        System.out.println("I am making a request to the artists endpoint for " + artistId);
         return client
                 .get()
                 .uri("/artists/{artist_id}", artistId)
