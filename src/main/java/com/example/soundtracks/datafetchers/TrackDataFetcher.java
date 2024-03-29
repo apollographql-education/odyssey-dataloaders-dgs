@@ -14,12 +14,6 @@ public class TrackDataFetcher {
         this.spotifyClient = spotifyClient;
     }
 
-
-    @DgsQuery
-    public MappedTrack track(@InputArgument String id) {
-        return this.spotifyClient.trackRequest(id);
-    }
-
     @DgsData(parentType="Track", field="artist")
     public MappedArtist getArtist(DgsDataFetchingEnvironment dfe) {
         MappedTrack track = dfe.getSource();
