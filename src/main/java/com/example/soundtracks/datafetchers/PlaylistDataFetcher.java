@@ -1,7 +1,8 @@
 package com.example.soundtracks.datafetchers;
 import com.example.soundtracks.datasources.SpotifyClient;
-import com.example.soundtracks.models.PlaylistCollection;
+import com.example.soundtracks.generated.types.Track;
 import com.example.soundtracks.models.MappedPlaylist;
+import com.example.soundtracks.models.PlaylistCollection;
 import com.example.soundtracks.models.Snapshot;
 import com.example.soundtracks.generated.types.AddItemsToPlaylistInput;
 import com.example.soundtracks.generated.types.AddItemsToPlaylistPayload;
@@ -36,6 +37,19 @@ public class PlaylistDataFetcher {
         return spotifyClient.playlistRequest(id);
     }
 
+    @DgsData(parentType = "Playlist")
+    public List<Track> tracks(DgsDataFetchingEnvironment dfe) {
+        MappedPlaylist playlist = dfe.getSource();
+        String id = playlist.getId();
+        List<Track> tracks = playlist.getTracks();
+
+        if (tracks != null) {
+            return tracks;
+        } else {
+            return spotifyClient.tracksRequest(id);
+        }
+    }
+
     @DgsMutation
     public AddItemsToPlaylistPayload addItemsToPlaylist(@InputArgument AddItemsToPlaylistInput input) {
         String playlistId = input.getPlaylistId();
@@ -46,7 +60,7 @@ public class PlaylistDataFetcher {
         AddItemsToPlaylistPayload payload = new AddItemsToPlaylistPayload();
 
         if (snapshot != null) {
-            String snapshotId = snapshot.getId();
+            String snapshotId = snapshot.id();
             if (Objects.equals(snapshotId, playlistId)) {
                 Playlist playlist = new Playlist();
                 playlist.setId(playlistId);

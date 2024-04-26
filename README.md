@@ -1,18 +1,16 @@
-# (Odyssey Course) Data Loaders with Java & DGS
+# (Odyssey Course) Intro to GraphQL with Java & DGS
 
-Welcome to the starter code for **Data Loaders with Java & DGS**, part of our GraphQL and DGS series. You can find the [course lessons and instructions](https://apollographql.com/tutorials/dataloaders-dgs) on Odyssey, [Apollo](https://apollographql.com)'s learning platform.
+Welcome to the starter code for **Intro to GraphQL with Java & DGS**. You can find the [course lessons and instructions](https://apollographql.com/tutorials/intro-dgs) on Odyssey, [Apollo](https://apollographql.com)'s learning platform.
 
 ## How to use this repo
 
-The course will walk you step by step on what to do. The code in this repository picks up where the project from [Federation with Java & DGS](https://www.apollographql.com/tutorials/federation-dgs) leaves off; if you'd like, follow along with this course using your own repo!
+The course will walk you step by step on what to do. This codebase is the starting point of your journey!
 
-If you need a refresher on GraphQL concepts, jump back into the [first course](https://www.apollographql.com/tutorials/intro-dgs) and join us here when you are ready.
-
-This project uses Java and requires JDK 17. To start the project, open a new terminal in the `soundtracks` directory and run:
+This project uses Java and requires JDK 17. To start the project, open a new terminal and run:
 
 `./gradlew bootRun`
 
-Or open `odyssey-dataloaders-dgs` in your IDE, navigate to the `SoundtracksApplication.java` file and click `Run`.
+Or navigate to the `SoundtracksApplication.java` file and click `Run` in your IDE.
 
 The `final` branch of this repo contains the final stage of the course, with all of the steps and code completed! If you get stuck, you can refer to it and compare your code.
 
@@ -34,16 +32,11 @@ For further reference, please consider the following sections:
 * [Spring Web](https://docs.spring.io/spring-boot/docs/3.2.0/reference/htmlsingle/index.html#web)
 
 ### Guides
-
-Please revisit the first course in this series anytime if you get stuck or need a refresher.
-* [Intro to GraphQL with Java & DGS](https://apollographql.com/tutorials/intro-dgs)
-
 The following guides illustrate how to use some features concretely:
 
 * [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
 * [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
 * [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
-
 
 ### Additional Links
 These additional references should also help you:
@@ -58,4 +51,5 @@ The default setup assumes that the GraphQL schema file for the remote service is
 
 You can learn more about the [plugin configuration options](https://netflix.github.io/dgs/generating-code-from-schema/#configuring-code-generation) and
 [how to use the generated types](https://netflix.github.io/dgs/generating-code-from-schema/) to adapt the default setup.
+
 
