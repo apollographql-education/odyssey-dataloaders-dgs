@@ -10,6 +10,7 @@ type Playlist {
     tracks: [Track!]!
 }
 
+
 "A single audio file, usually a song."
 type Track {
     "The ID for the track."

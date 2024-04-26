@@ -1,12 +1,20 @@
 package com.example.soundtracks.datasources;
 
-import com.example.soundtracks.models.*;
+import com.example.soundtracks.models.MappedPlaylist;
+import com.example.soundtracks.models.PlaylistCollection;
+import com.example.soundtracks.generated.types.Track;
+import com.example.soundtracks.models.Snapshot;
+import com.example.soundtracks.models.MappedArtist;
+import com.example.soundtracks.models.TrackCollection;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
+import java.util.List;
+
 @Component
 public class SpotifyClient {
-    private static final String SPOTIFY_API_URL = "http://localhost:5001/v1";
+    private static final String SPOTIFY_API_URL = "https://spotify-demo-api-fe224840a08c.herokuapp.com/v1";
+
     private final RestClient client = RestClient.builder().baseUrl(SPOTIFY_API_URL).build();
 
     public PlaylistCollection featuredPlaylistsRequest() {
@@ -25,12 +33,19 @@ public class SpotifyClient {
                 .body(MappedPlaylist.class);
     }
 
-    public MappedTrack trackRequest(String trackId) {
-        return client
+    public List<Track> tracksRequest(String playlistId) {
+        TrackCollection trackList = client
                 .get()
-                .uri("/tracks/{track_id}", trackId)
+                .uri("/playlists/{playlist_id}/tracks", playlistId)
                 .retrieve()
-                .body(MappedTrack.class);
+                .body(TrackCollection.class);
+
+        if (trackList != null) {
+            return trackList.getTracks();
+        } else {
+            return null;
+        }
+
     }
 
     public MappedArtist artistRequest(String artistId) {
@@ -51,17 +66,5 @@ public class SpotifyClient {
                         .build(playlistId))
                 .retrieve()
                 .body(Snapshot.class);
-    }
-
-    public PlaylistCollection search(String term) {
-        return client
-                .get()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/search")
-                        .queryParam("q", term)
-                        .queryParam("type", "playlist")
-                        .build())
-                .retrieve()
-                .body(PlaylistCollection.class);
     }
 }
