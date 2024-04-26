@@ -4,6 +4,8 @@ import com.example.soundtracks.datasources.SpotifyClient;
 import com.example.soundtracks.models.MappedTrack;
 import com.example.soundtracks.models.MappedArtist;
 import com.netflix.graphql.dgs.*;
+import org.dataloader.DataLoader;
+import java.util.concurrent.CompletableFuture;
 
 
 @DgsComponent
@@ -15,10 +17,13 @@ public class TrackDataFetcher {
     }
 
     @DgsData(parentType="Track", field="artist")
-    public MappedArtist getArtist(DgsDataFetchingEnvironment dfe) {
+    public CompletableFuture<MappedArtist> getArtist(DgsDataFetchingEnvironment dfe) {
         MappedTrack track = dfe.getSource();
         String artistId = track.getArtistId();
-        return spotifyClient.artistRequest(artistId);
+
+        DataLoader<String, MappedArtist> artistDataloader = dfe.getDataLoader("artists");
+
+        return artistDataloader.load(artistId);
     }
 
 }
