@@ -7,6 +7,9 @@ import com.netflix.graphql.dgs.*;
 import org.dataloader.DataLoader;
 import java.util.concurrent.CompletableFuture;
 
+import org.dataloader.DataLoader;
+import java.util.concurrent.CompletableFuture;
+
 
 @DgsComponent
 public class TrackDataFetcher {
@@ -22,7 +25,6 @@ public class TrackDataFetcher {
         String artistId = track.getArtistId();
 
         DataLoader<String, MappedArtist> artistDataloader = dfe.getDataLoader("artists");
-
         return artistDataloader.load(artistId);
     }
 
