@@ -1,71 +1,62 @@
-"A curated collection of tracks designed for a specific activity or mood."
-type Playlist {
-    "The ID for the playlist."
+"A particular intergalactic location available for booking"
+type Listing {
     id: ID!
-    "The name of the playlist."
+    "The listing's title"
+    title: String!
+    "The listing's description"
+    description: String!
+    "The number of beds available"
+    numOfBeds: Int
+    "The cost per night"
+    costPerNight: Float
+    "Indicates whether listing is closed for bookings (on hiatus)"
+    closedForBookings: Boolean
+    "The amenities available for this listing"
+    amenities: [Amenity!]!
+}
+
+type Amenity {
+    id: ID!
+    "The amenity category the amenity belongs to"
+    category: String!
+    "The amenity's name"
     name: String!
-    "Describes the playlist, what to expect and entices the user to listen."
-    description: String
-    "The tracks of the playlist."
-    tracks: [Track!]!
 }
 
-
-"A single audio file, usually a song."
-type Track {
-    "The ID for the track."
-    id: ID!
-    "The name of the track"
-    name: String!
-    "The track length in milliseconds."
-    durationMs: Int!
-    "Whether or not the track has explicit lyrics (true = yes it does; false = no it does not OR unknown)"
-    explicit: Boolean!
-    "The URI for the track, usually a Spotify link."
-    uri: String!
-    "The artist for the track"
-    artist: Artist
-}
-
-type Artist {
-    "The ID for the artist."
-    id: ID!
-    "The name of the artist"
-    name: String
-    "The number of followers the artist has"
-    followers: Int
-    "A collection of genres that can be ascribed to this artist"
-    genres: [String]
-    "The URI for the artist, usually a Spotify link"
-    uri: String
-}
-
-type Query {
-    "Playlists hand-picked to be featured to all users."
-    featuredPlaylists: [Playlist!]!
-    "Retrieves a specific playlist."
-    playlist(id: ID!): Playlist
-}
-
-type Mutation {
-    "Add one or more items to a user's playlist."
-    addItemsToPlaylist(input: AddItemsToPlaylistInput!): AddItemsToPlaylistPayload
-}
-
-type AddItemsToPlaylistPayload {
+type CreateListingResponse {
     "Similar to HTTP status code, represents the status of the mutation"
     code: Int!
     "Indicates whether the mutation was successful"
     success: Boolean!
     "Human-readable message for the UI"
     message: String!
-    "The playlist that contains the newly added items"
-    playlist: Playlist
+    "The newly created listing"
+    listing: Listing
 }
 
-input AddItemsToPlaylistInput {
-    "The ID of the playlist."
-    playlistId: ID!
-    "A comma-separated list of Spotify URIs to add."
-    uris: [String!]!
+input CreateListingInput {
+    "The listing's title"
+    title: String!
+    "The listing's description"
+    description: String!
+    "The number of beds available"
+    numOfBeds: Int!
+    "The cost per night"
+    costPerNight: Float!
+    "Indicates whether listing is closed for bookings (on hiatus)"
+    closedForBookings: Boolean
+    "The Listing's amenities"
+    amenities: [ID!]!
+}
+
+type Query {
+    "A curated array of listings to feature on the homepage"
+    featuredListings: [Listing!]!
+    "Returns the details about this listing"
+    listing(id: ID!): Listing
+}
+
+type Mutation {
+    "Creates a new listing"
+    createListing(input: CreateListingInput!): CreateListingResponse!
 }
