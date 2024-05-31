@@ -23,6 +23,7 @@ public class ListingService {
     private final ObjectMapper mapper = new ObjectMapper();
 
     public List<ListingModel> featuredListingsRequest() throws IOException {
+        System.out.println("Calling for featured listings");
         JsonNode response = client
                 .get()
                 .uri("/featured-listings")
@@ -45,6 +46,7 @@ public class ListingService {
     }
 
     public List<Amenity> amenitiesRequest(String listingId) throws IOException {
+        System.out.println("Calling for amenities for listing " + listingId);
         JsonNode response = client
                 .get()
                 .uri("/listings/{listing_id}/amenities", listingId)
