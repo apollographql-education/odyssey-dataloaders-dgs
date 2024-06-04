@@ -1,6 +1,7 @@
 package com.example.listings.datafetchers;
 import com.example.listings.generated.types.Amenity;
 import com.example.listings.generated.types.CreateListingResponse;
+import com.example.listings.models.AmenityList;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
 import com.netflix.graphql.dgs.DgsQuery;
@@ -10,10 +11,16 @@ import com.netflix.graphql.dgs.DgsMutation;
 import java.io.IOException;
 import java.util.List;
 import com.example.listings.datasources.ListingService;
+import graphql.execution.DataFetcherResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.netflix.graphql.dgs.DgsDataFetchingEnvironment;
 import com.netflix.graphql.dgs.InputArgument;
 import com.example.listings.generated.types.CreateListingInput;
+
+import org.dataloader.DataLoader;
+
+import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 
 @DgsComponent
@@ -26,26 +33,34 @@ public class ListingDataFetcher {
         this.listingService = listingService;
     }
     @DgsQuery
-    public List<ListingModel> featuredListings() throws IOException {
-        return listingService.featuredListingsRequest();
+    public DataFetcherResult<List<ListingModel>> featuredListings() throws IOException {
+        List<ListingModel> featuredListings = listingService.featuredListingsRequest();
+        return DataFetcherResult.<List<ListingModel>>newResult()
+                .data(featuredListings)
+                .localContext("featuredListings")
+                .build();
     }
 
     @DgsQuery
-    public ListingModel listing(@InputArgument String id) {
-        return listingService.listingRequest(id);
+    public DataFetcherResult<ListingModel> listing(@InputArgument String id) {
+        ListingModel listing = listingService.listingRequest(id);
+        return DataFetcherResult.<ListingModel>newResult()
+                .data(listing)
+                .localContext("listing")
+                .build();
     }
-
     @DgsData(parentType = "Listing")
-    public List<Amenity> amenities(DgsDataFetchingEnvironment dfe) throws IOException {
+    public Object amenities(DgsDataFetchingEnvironment dfe) throws IOException {
         ListingModel listing = dfe.getSource();
+        String localContext = dfe.getLocalContext();
         String id = listing.getId();
-        List<Amenity> amenities = listing.getAmenities();
 
-        if (amenities != null) {
-            return amenities;
-        } else {
-            return listingService.amenitiesRequest(id);
+        if (Objects.equals(localContext, "listing")) {
+            return listing.getAmenities(); // returns List<Amenity>
         }
+
+        DataLoader<String, List<Amenity>> amenityDataLoader = dfe.getDataLoader("amenities");
+        return amenityDataLoader.load(id); // returns CompletableFuture<List<Amenity>>
     }
 
     @DgsMutation

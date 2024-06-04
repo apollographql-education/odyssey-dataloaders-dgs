@@ -1,6 +1,7 @@
 package com.example.listings.datasources;
 
 import com.example.listings.generated.types.CreateListingInput;
+import com.example.listings.models.AmenityList;
 import com.example.listings.models.ListingModel;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,9 @@ import java.util.List;
 
 @Component
 public class ListingService {
-    private static final String LISTING_API_URL = "https://rt-airlock-services-listing.herokuapp.com";
+
+    // https://rt-airlock-services-listing.herokuapp.com
+    private static final String LISTING_API_URL = "http://localhost:4010";
     private final RestClient client = RestClient.builder().baseUrl(LISTING_API_URL).build();
 
     private final ObjectMapper mapper = new ObjectMapper();
@@ -43,6 +46,25 @@ public class ListingService {
                 .uri("/listings/{listing_id}", id)
                 .retrieve()
                 .body(ListingModel.class);
+    }
+
+    public List<List<Amenity>> multipleAmenitiesRequest(List<String> listingIds) throws IOException {
+        System.out.println("Calling the /amenities/listings endpoint with listings " + listingIds);
+        JsonNode amenities = client
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/amenities/listings")
+                        .queryParam("ids", String.join(",", listingIds))
+                        .build())
+                .retrieve()
+                .body(JsonNode.class);
+
+        if (amenities != null) {
+            return mapper.readValue(amenities.traverse(), new TypeReference<List<List<Amenity>>>() {
+            });
+        }
+
+        return null;
     }
 
     public List<Amenity> amenitiesRequest(String listingId) throws IOException {
