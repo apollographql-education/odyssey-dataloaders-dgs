@@ -17,6 +17,9 @@ import com.netflix.graphql.dgs.DgsDataFetchingEnvironment;
 import com.netflix.graphql.dgs.InputArgument;
 import com.example.listings.generated.types.CreateListingInput;
 
+import org.dataloader.DataLoader;
+import java.util.concurrent.CompletableFuture;
+
 
 @DgsComponent
 public class ListingDataFetcher {
@@ -46,7 +49,7 @@ public class ListingDataFetcher {
     }
 
     @DgsData(parentType = "Listing")
-    public List<Amenity> amenities(DgsDataFetchingEnvironment dfe) throws IOException {
+    public Object amenities(DgsDataFetchingEnvironment dfe) throws IOException {
         ListingModel listing = dfe.getSource();
         String id = listing.getId();
         Map<String, Boolean> localContext = dfe.getLocalContext();
@@ -54,7 +57,8 @@ public class ListingDataFetcher {
         if (localContext.get("hasAmenityData")) {
             return listing.getAmenities();
         }
-        return listingService.amenitiesRequest(id);
+        DataLoader<String, List<Amenity>> amenityDataLoader = dfe.getDataLoader("amenities");
+        return amenityDataLoader.load(id);
     }
 
     @DgsMutation
