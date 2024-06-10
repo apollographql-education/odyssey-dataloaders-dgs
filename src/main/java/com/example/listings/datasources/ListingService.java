@@ -61,6 +61,25 @@ public class ListingService {
         return null;
     }
 
+    public List<List<Amenity>> multipleAmenitiesRequest(List<String> listingIds) throws IOException {
+        System.out.println("Calling the /amenities/listings endpoint with listings " + listingIds);
+        JsonNode amenities = client
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/amenities/listings")
+                        .queryParam("ids", String.join(",", listingIds))
+                        .build())
+                .retrieve()
+                .body(JsonNode.class);
+
+        if (amenities != null) {
+            return mapper.readValue(amenities.traverse(), new TypeReference<List<List<Amenity>>>() {
+            });
+        }
+
+        return null;
+    }
+
     public ListingModel createListingRequest(CreateListingInput listing) {
         MappingJacksonValue serializedListing = new MappingJacksonValue(new CreateListingModel(listing));
         return client
