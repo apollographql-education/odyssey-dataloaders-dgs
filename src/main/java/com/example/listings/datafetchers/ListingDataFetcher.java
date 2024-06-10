@@ -61,11 +61,9 @@ public class ListingDataFetcher {
     public CreateListingResponse createListing(@InputArgument CreateListingInput input) {
         ListingModel createdListing = listingService.createListingRequest(input);
         CreateListingResponse response = new CreateListingResponse();
-        // We can still access createdListing.getHash() here!
 
         if (createdListing != null) {
             response.setListing(createdListing);
-            // We can no longer access response.listing.getHash() here!
             response.setCode(200);
             response.setMessage("success");
             response.setSuccess(true);
