@@ -1,17 +1,17 @@
 package com.example.listings.datafetchers;
 import com.example.listings.generated.types.Amenity;
 import com.example.listings.generated.types.CreateListingResponse;
-import com.example.listings.models.AmenityList;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.example.listings.models.ListingModel;
+import graphql.execution.DataFetcherResult;
 import com.netflix.graphql.dgs.DgsMutation;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.List;
 import com.example.listings.datasources.ListingService;
-import graphql.execution.DataFetcherResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.netflix.graphql.dgs.DgsDataFetchingEnvironment;
 import com.netflix.graphql.dgs.InputArgument;
@@ -19,7 +19,6 @@ import com.example.listings.generated.types.CreateListingInput;
 
 import org.dataloader.DataLoader;
 
-import java.util.Map;
 
 
 @DgsComponent

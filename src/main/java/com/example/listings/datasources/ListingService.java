@@ -18,9 +18,7 @@ import java.util.List;
 
 @Component
 public class ListingService {
-
-    // https://rt-airlock-services-listing.herokuapp.com
-    private static final String LISTING_API_URL = "http://localhost:4010";
+    private static final String LISTING_API_URL = "https://rt-airlock-services-listing.herokuapp.com";
     private final RestClient client = RestClient.builder().baseUrl(LISTING_API_URL).build();
 
     private final ObjectMapper mapper = new ObjectMapper();
@@ -48,6 +46,23 @@ public class ListingService {
                 .body(ListingModel.class);
     }
 
+
+    public List<Amenity> amenitiesRequest(String listingId) throws IOException {
+        System.out.println("Calling for amenities for listing " + listingId);
+        JsonNode response = client
+                .get()
+                .uri("/listings/{listing_id}/amenities", listingId)
+                .retrieve()
+                .body(JsonNode.class);
+
+        if (response != null) {
+            return mapper.readValue(response.traverse(), new TypeReference<List<Amenity>>() {
+            });
+        }
+
+        return null;
+    }
+
     public List<List<Amenity>> multipleAmenitiesRequest(List<String> listingIds) throws IOException {
         System.out.println("Calling the /amenities/listings endpoint with listings " + listingIds);
         JsonNode amenities = client
@@ -61,22 +76,6 @@ public class ListingService {
 
         if (amenities != null) {
             return mapper.readValue(amenities.traverse(), new TypeReference<List<List<Amenity>>>() {
-            });
-        }
-
-        return null;
-    }
-
-    public List<Amenity> amenitiesRequest(String listingId) throws IOException {
-        System.out.println("Calling for amenities for listing " + listingId);
-        JsonNode response = client
-                .get()
-                .uri("/listings/{listing_id}/amenities", listingId)
-                .retrieve()
-                .body(JsonNode.class);
-
-        if (response != null) {
-            return mapper.readValue(response.traverse(), new TypeReference<List<Amenity>>() {
             });
         }
 

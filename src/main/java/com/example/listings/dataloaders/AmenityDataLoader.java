@@ -2,7 +2,6 @@ package com.example.listings.dataloaders;
 
 import com.example.listings.datasources.ListingService;
 import com.example.listings.generated.types.Amenity;
-import com.example.listings.models.AmenityList;
 import com.netflix.graphql.dgs.DgsDataLoader;
 import org.dataloader.BatchLoader;
 import org.springframework.beans.factory.annotation.Autowired;
