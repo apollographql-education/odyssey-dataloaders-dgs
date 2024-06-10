@@ -19,8 +19,7 @@ import com.example.listings.generated.types.CreateListingInput;
 
 import org.dataloader.DataLoader;
 
-import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
+import java.util.Map;
 
 
 @DgsComponent
@@ -34,10 +33,10 @@ public class ListingDataFetcher {
     }
     @DgsQuery
     public DataFetcherResult<List<ListingModel>> featuredListings() throws IOException {
-        List<ListingModel> featuredListings = listingService.featuredListingsRequest();
+        List<ListingModel> listings = listingService.featuredListingsRequest();
         return DataFetcherResult.<List<ListingModel>>newResult()
-                .data(featuredListings)
-                .localContext("featuredListings")
+                .data(listings)
+                .localContext(Map.of("hasAmenityData", false))
                 .build();
     }
 
@@ -46,17 +45,17 @@ public class ListingDataFetcher {
         ListingModel listing = listingService.listingRequest(id);
         return DataFetcherResult.<ListingModel>newResult()
                 .data(listing)
-                .localContext("listing")
+                .localContext(Map.of("hasAmenityData", true))
                 .build();
     }
     @DgsData(parentType = "Listing")
     public Object amenities(DgsDataFetchingEnvironment dfe) throws IOException {
         ListingModel listing = dfe.getSource();
-        String localContext = dfe.getLocalContext();
         String id = listing.getId();
+        Map<String, Boolean> localContext = dfe.getLocalContext();
 
-        if (Objects.equals(localContext, "listing")) {
-            return listing.getAmenities(); // returns List<Amenity>
+        if (localContext.get("hasAmenityData")) {
+            return listing.getAmenities();
         }
 
         DataLoader<String, List<Amenity>> amenityDataLoader = dfe.getDataLoader("amenities");
@@ -67,11 +66,9 @@ public class ListingDataFetcher {
     public CreateListingResponse createListing(@InputArgument CreateListingInput input) {
         ListingModel createdListing = listingService.createListingRequest(input);
         CreateListingResponse response = new CreateListingResponse();
-        // We can still access createdListing.getHash() here!
 
         if (createdListing != null) {
             response.setListing(createdListing);
-            // We can no longer access response.listing.getHash() here!
             response.setCode(200);
             response.setMessage("success");
             response.setSuccess(true);
