@@ -1,12 +1,13 @@
-package com.example.soundtracks;
+package com.example.listings;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SoundtracksApplication {
+public class ListingsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SoundtracksApplication.class, args);
+		SpringApplication.run(ListingsApplication.class, args);
 	}
+
 }
