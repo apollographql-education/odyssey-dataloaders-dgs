@@ -1,6 +1,6 @@
-# (Odyssey Course) Intro to GraphQL with Java & DGS
+# (Odyssey Course) Data Loaders with Java & DGS
 
-Welcome to the starter code for **Intro to GraphQL with Java & DGS**. You can find the [course lessons and instructions](https://apollographql.com/tutorials/intro-dgs) on Odyssey, [Apollo](https://apollographql.com)'s learning platform.
+Welcome to the starter code for **Data Loaders with Java & DGS**. You can find the [course lessons and instructions](https://apollographql.com/tutorials/dataloaders-dgs) on Odyssey, [Apollo](https://apollographql.com)'s learning platform.
 
 ## How to use this repo
 
@@ -10,11 +10,11 @@ This project uses Java and requires JDK 17. To start the project, open a new ter
 
 `./gradlew bootRun`
 
-Or navigate to the `SoundtracksApplication.java` file and click `Run` in your IDE.
+Or navigate to the `ListingsApplication.java` file and click `Run` in your IDE.
 
 The `final` branch of this repo contains the final stage of the course, with all of the steps and code completed! If you get stuck, you can refer to it and compare your code.
 
-## Getting Help
+## Getting help
 
 This repo is _not regularly monitored_.
 
