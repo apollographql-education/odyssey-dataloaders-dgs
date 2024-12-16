@@ -4,6 +4,8 @@ import com.example.listings.generated.types.CreateListingInput;
 import com.example.listings.models.AmenityList;
 import com.example.listings.models.ListingModel;
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -38,6 +40,7 @@ public class ListingService {
         return null;
     }
 
+    @Cacheable(value="listings", unless = "#result == null")
     public ListingModel listingRequest(String id) {
         return client
                 .get()
@@ -82,6 +85,7 @@ public class ListingService {
         return null;
     }
 
+//    @CachePut(key = "#listing.id")
     public ListingModel createListingRequest(CreateListingInput listing) {
         MappingJacksonValue serializedListing = new MappingJacksonValue(new CreateListingModel(listing));
         return client
